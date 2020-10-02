@@ -21,3 +21,5 @@ spring:
     add-mappings: false
   jackson:
     date-format: dd-MM-yyyy
+logging:
+  file: sm-post-service.log
