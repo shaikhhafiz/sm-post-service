@@ -1,5 +1,7 @@
 package com.hafiz.sm.post.core.config;
 
+import com.hafiz.sm.post.core.services.AuthorizationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +12,10 @@ import java.io.IOException;
 
 @Component
 @Order(Integer.MIN_VALUE)
+@RequiredArgsConstructor
 public class CORSFilter implements Filter {
+
+  private final AuthorizationService authorizationService;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -22,6 +27,7 @@ public class CORSFilter implements Filter {
       throws IOException, ServletException {
     HttpServletResponse response = (HttpServletResponse) res;
     HttpServletRequest request = (HttpServletRequest) req;
+    authorizationService.validateToken(request.getHeader("Authorization"));
 
     response.setHeader("Access-Control-Allow-Origin", "*");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, PATCH");

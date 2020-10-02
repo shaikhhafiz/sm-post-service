@@ -11,4 +11,4 @@ eureka:
 service:
   feign:
     client:
-      auth-service: localhost:8081/users/
+      auth-service: http://localhost:8081/
